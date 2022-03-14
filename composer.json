@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "arcanedev/log-viewer": "~9.0",
         "archtechx/enums": "^0.2.0",
         "bavix/laravel-wallet": "^8.0",
         "creativeorange/gravatar": "^1.0",

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('newsletter_sms')->default(false);
             $table->boolean('newsletter_phone')->default(false);
             $table->boolean('newsletter_paper')->default(false);
-            $table->timestamp('birthdate');
+            $table->dateTime('birthdate');
             $table->string('country_birth');
             $table->string('city_birth');
             $table->string('nationality');

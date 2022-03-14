@@ -18,13 +18,17 @@ class AgenceSeeder extends Seeder
         Agence::create([
             "bic" => "BZHMFRPPXXX",
             "nom_agence" => "BZHM Financial E-Bank",
-            "ville" => "Nantes"
+            "ville" => "Nantes",
+            "code_banque" => "18990",
+            "code_agence" => "0001",
         ]);
 
         Agence::create([
             "bic" => "BZHMFRPP001",
             "nom_agence" => "BZHM Financial Group Ouest",
-            "ville" => "Nantes"
+            "ville" => "Nantes",
+            "code_banque" => "18990",
+            "code_agence" => "0002",
         ]);
     }
 }

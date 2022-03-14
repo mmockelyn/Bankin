@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('number');
+            $table->string('number');
             $table->string('type_cb');
-            $table->integer('exp_month');
-            $table->integer('exp_year');
-            $table->integer('crypto_vis');
+            $table->string('exp_month');
+            $table->string('exp_year');
+            $table->string('crypto_vis');
 
             $table->foreignId('user_id')
                 ->constrained()

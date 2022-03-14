@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CreditCardTypeSeeder::class);
         $this->call(HousingTypeSeeder::class);
         $this->call(SubscriptionSeeder::class);
+
+        $this->call(UserSeeder::class);
     }
 }

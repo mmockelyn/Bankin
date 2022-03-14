@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('bic')->unique();
             $table->string('nom_agence');
             $table->string('ville');
+            $table->string('code_banque');
+            $table->string('code_agence');
         });
 
         Schema::table('users', function (Blueprint $table) {

@@ -10,7 +10,7 @@ class UserCivility extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $dates = ['birthdate'];
+    public $timestamps = false;
 
     public function user()
     {
