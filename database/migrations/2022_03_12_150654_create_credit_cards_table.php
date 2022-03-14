@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('exp_month');
             $table->string('exp_year');
             $table->string('crypto_vis');
+            $table->float('payment_limit');
+            $table->float('withdraw_limit');
 
             $table->foreignId('user_id')
                 ->constrained()

@@ -2,6 +2,6 @@
 
 return [
     'account' => [
-        'dashboard' => "Tous mes comptes"
+        'dashboard' => "Tous mes comptes",
     ]
 ];

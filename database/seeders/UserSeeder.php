@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helper\Account\CivilityEnum;
 use App\Helper\Account\CreditCardGenerator;
 use App\Helper\Account\IbanGenerator;
 use App\Models\Core\Agence;
@@ -25,7 +26,7 @@ class UserSeeder extends Seeder
         $ibanGen = new IbanGenerator();
         $ccGenerator = new CreditCardGenerator();
 
-        $user = User::query()->create([
+        User::create([
             'email' => $faker->email,
             'password' => \Hash::make('password'),
             'agent' => 0,
@@ -35,6 +36,8 @@ class UserSeeder extends Seeder
             'signated_at' => now()->subDays(rand(2,365)),
             'agence_id' => Agence::first()->id
         ]);
+
+        $user = User::query()->first();
 
         $address = User\UserAddress::create([
             "fiscal_country" => "France",
@@ -90,7 +93,7 @@ class UserSeeder extends Seeder
         ]);*/
 
         $iban = $ibanGen->generate(10, $user);
-        $ccGenerator->generate($user, ['debit_type' => "differ"], $iban);
+        $card = $ccGenerator->generate($user, ['debit_type' => "differ", "payment_limit" => 1200, "withdraw_limit" => 700], $iban);
 
         $plan = ["silver", "gold"];
         $c_plan = array_rand($plan, 1);
@@ -98,6 +101,18 @@ class UserSeeder extends Seeder
             "user_id" => $user->id,
             "subscription_id" => $plan[rand(0,1)] == 'silver' ? 1 : 2,
         ]);
+
+        $wallet = $user->createWallet([
+            'name' => "Compte ".CivilityEnum::render('type_account', $civility->type_account),
+            'slug' => \Str::slug("Compte ".CivilityEnum::render('type_account', $civility->type_account)),
+            'meta' => [
+                'iban' => $iban->iban,
+                'card' => $card->number,
+                'credit' => 500
+            ]
+        ]);
+
+        $wallet->deposit(100, ["designation" => "Dépot d'espèce ".$user->agence->nom_agence]);
 
     }
 }

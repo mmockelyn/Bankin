@@ -13,7 +13,9 @@ use App\Models\User\UserJustify;
 use App\Models\User\UserPro;
 use App\Models\User\UserSubscription;
 use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Traits\CanConfirm;
 use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Traits\HasWallets;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +26,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements Wallet,HasLoginsAndDevicesInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, HasWallet, HasLoginsAndDevices;
+    use HasApiTokens, HasFactory, Notifiable, HasWallet, HasLoginsAndDevices, HasWallets, CanConfirm;
 
     /**
      * The attributes that are mass assignable.

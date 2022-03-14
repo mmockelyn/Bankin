@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
             $table->bigIncrements('id');
             $table->morphs('payable');
             $table->unsignedBigInteger('wallet_id');
-            $table->enum('type', ['deposit', 'withdraw'])->index();
+            $table->enum('type', ['deposit', 'withdraw', 'payment', 'transfer', 'sepa'])->index();
             $table->decimal('amount', 64, 0);
             $table->boolean('confirmed');
             $table->json('meta')->nullable();

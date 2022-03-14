@@ -666,6 +666,7 @@
     </div>
     <!--end::Container-->
     <!--begin::Container-->
+    @if($title)
     <div class="header-menu-container d-flex align-items-stretch flex-stack h-lg-75px w-100" id="kt_header_nav">
         <!--begin::Menu wrapper-->
         <div class="header-menu container-xxl flex-column align-items-center flex-lg-row" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
@@ -674,5 +675,6 @@
         <!--end::Menu wrapper-->
     </div>
     <!--end::Container-->
+    @endif
 </div>
 <!--end::Header-->

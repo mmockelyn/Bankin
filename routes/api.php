@@ -23,3 +23,7 @@ Route::prefix('oauth')->group(function () {
     Route::get('/token', [\App\Http\Controllers\Api\AuthController::class, 'token']);
     Route::post('/verify', [\App\Http\Controllers\Api\AuthController::class, 'verify']);
 });
+
+Route::prefix('transaction')->group(function () {
+    Route::get('{uuid}', [\App\Http\Controllers\Api\TransactionController::class, 'showTransaction']);
+});

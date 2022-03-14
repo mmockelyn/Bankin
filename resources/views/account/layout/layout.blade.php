@@ -42,7 +42,7 @@ License: For each use you must have a valid license purchased only from above li
         <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             @include("account.layout.include.header")
             <!--begin::Container-->
-            <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+            <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start">
                 <!--begin::Post-->
                 <div class="content flex-row-fluid" id="kt_content">
                     @yield("content")

@@ -62,7 +62,9 @@ class CreditCardGenerator
                 "exp_year" => $expYear,
                 "crypto_vis" => $cryp,
                 "user_id" => $user->id,
-                "iban_id" => $iban->id
+                "iban_id" => $iban->id,
+                "payment_limit" => $request['payment_limit'],
+                "withdraw_limit" => $request['withdraw_limit'],
             ]);
         }catch (\Exception $exception) {
             return $exception;
