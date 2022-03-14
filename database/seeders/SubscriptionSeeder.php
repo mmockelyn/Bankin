@@ -18,13 +18,15 @@ class SubscriptionSeeder extends Seeder
         Subscription::query()->create([
             'name' => "Convention Silver",
             'price' => 0,
-            'type' => "RECURRING"
+            'type' => "RECURRING",
+            'color' => 'primary'
         ]);
 
         Subscription::query()->create([
             'name' => "Convention Gold",
             'price' => 9.99,
-            'type' => "RECURRING"
+            'type' => "RECURRING",
+            'color' => 'warning'
         ]);
     }
 }

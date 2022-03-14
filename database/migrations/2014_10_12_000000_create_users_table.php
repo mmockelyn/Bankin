@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('agent')->default(false);
-            $table->enum('step_open_account', ['STARTING', 'COMPLETED', 'ACCEPTED', 'DECLINED']);
+            $table->enum('step_open_account', ['STARTING', 'COMPLETED', 'ACCEPTED', 'DECLINED', 'TERMINATED']);
             $table->boolean('tos')->default(false);
             $table->boolean('signated')->default(false);
             $table->timestamp('signated_at');

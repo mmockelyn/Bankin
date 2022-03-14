@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->enum('type', ['PONCTUAL', 'RECURRING']);
+            $table->string('color');
         });
     }
 

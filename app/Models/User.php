@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Core\Agence;
 use App\Models\Core\Subscription;
 use App\Models\User\CreditCard;
 use App\Models\User\Iban;
@@ -99,6 +100,11 @@ class User extends Authenticatable implements Wallet,HasLoginsAndDevicesInterfac
     public function account()
     {
         return $this->hasOne(UserAccount::class);
+    }
+
+    public function agence()
+    {
+        return $this->belongsTo(Agence::class);
     }
 
 
