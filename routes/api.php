@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('simulate')->group(function () {
+    Route::get('facility', \App\Http\Controllers\Api\Simulate\FacilityController::class);
+    Route::get('info_subscription', \App\Http\Controllers\Api\Simulate\InfoSubscriptionController::class);
+});
+
+Route::prefix('oauth')->group(function () {
+    Route::get('/token', [\App\Http\Controllers\Api\AuthController::class, 'token']);
+    Route::post('/verify', [\App\Http\Controllers\Api\AuthController::class, 'verify']);
 });

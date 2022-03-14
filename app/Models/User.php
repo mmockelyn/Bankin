@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Core\Subscription;
 use App\Models\User\CreditCard;
 use App\Models\User\Iban;
+use App\Models\User\UserAccount;
 use App\Models\User\UserAddress;
 use App\Models\User\UserCivility;
 use App\Models\User\UserJustify;
@@ -93,6 +94,11 @@ class User extends Authenticatable implements Wallet,HasLoginsAndDevicesInterfac
     public function subscriptions()
     {
         return $this->hasMany(UserSubscription::class);
+    }
+
+    public function account()
+    {
+        return $this->hasOne(UserAccount::class);
     }
 
 
