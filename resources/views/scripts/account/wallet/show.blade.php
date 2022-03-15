@@ -1,7 +1,10 @@
 <script type="text/javascript">
     let elements = {
         transaction: document.querySelectorAll('.showTransaction'),
-        drawer: document.querySelector('#kt_drawer_example_basic')
+        drawer: document.querySelector('#kt_drawer_example_basic'),
+        btnShowRib: document.querySelector('.showRib'),
+        modalRib: document.querySelector('#modalShowRib'),
+        modalShowRib: new bootstrap.Modal(document.querySelector('#modalShowRib')),
     }
     var processs = function(search) {
         var timeout = setTimeout(function() {
@@ -90,6 +93,7 @@
                         'payment': {"text": "Carte Bancaire"},
                         'transfer': {"text": "Virement Bancaire"},
                         'sepa': {"text": "Prélèvement"},
+                        'fee': {"text": "Frais Bancaire"},
                     }
                     console.log(data)
                     data.tr.amount > 0 ? elements.drawer.querySelector('.card-header').classList.add('bg-success') : elements.drawer.querySelector('.card-header').classList.add('bg-danger')
@@ -107,6 +111,34 @@
                     });
                 }
             })
+        })
+    })
+    elements.btnShowRib.addEventListener('click', e => {
+        e.preventDefault()
+        $.ajax({
+            url: '/account/info',
+            success: data => {
+                console.log(data)
+
+                let type_account = {
+                    "INDIVIDUAL": {"text": "Compte Individuel"},
+                    "JOIN": {"text": "Compte Join"},
+                    "PROFESSIONNAL": {"text": "Compte Pro"},
+                }
+
+                elements.modalRib.querySelector('#textTypeAccount').innerHTML = type_account[data.civility.type_account].text
+                elements.modalRib.querySelector('#textInfoCompte').innerHTML = `${data.ibans[0].number_account} ${data.agence.nom_agence} - ${data.civility.civility}. ${data.civility.birthname} ${data.civility.name} `
+                elements.modalRib.querySelector('#textIban').innerHTML = `${data.ibans[0].iban}`
+                elements.modalRib.querySelector('#textBic').innerHTML = `${data.agence.bic}`
+                elements.modalRib.querySelector('#textCodeBanque').innerHTML = `${data.ibans[0].code_banque}`
+                elements.modalRib.querySelector('#textCodeGuichet').innerHTML = `${data.ibans[0].code_guichet}`
+                elements.modalRib.querySelector('#textNumCpt').innerHTML = `${data.ibans[0].number_account}`
+                elements.modalRib.querySelector('#textKey').innerHTML = `${data.ibans[0].key_rib}`
+                elements.modalRib.querySelector('#textAgenceName').innerHTML = `${data.agence.nom_agence}`
+
+
+                elements.modalShowRib.show()
+            }
         })
     })
 </script>

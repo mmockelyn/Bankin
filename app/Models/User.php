@@ -12,8 +12,10 @@ use App\Models\User\UserCivility;
 use App\Models\User\UserJustify;
 use App\Models\User\UserPro;
 use App\Models\User\UserSubscription;
+use Bavix\Wallet\Interfaces\Customer;
 use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Traits\CanConfirm;
+use Bavix\Wallet\Traits\CanPay;
 use Bavix\Wallet\Traits\HasWallet;
 use Bavix\Wallet\Traits\HasWallets;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -108,6 +110,7 @@ class User extends Authenticatable implements Wallet,HasLoginsAndDevicesInterfac
     {
         return $this->belongsTo(Agence::class);
     }
+
 
 
 }

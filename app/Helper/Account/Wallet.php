@@ -4,6 +4,9 @@
 namespace App\Helper\Account;
 
 
+use Bavix\Wallet\Models\Transaction;
+use Ramsey\Uuid\Uuid;
+
 class Wallet
 {
     public static function getMonth($number)
@@ -58,6 +61,10 @@ class Wallet
                 case 'sepa':
                     return 'Prélèvement Bancaire';
                     break;
+
+                case 'fee':
+                    return 'Frais Bancaire';
+                    break;
             }
         } else {
             switch ($type) {
@@ -79,7 +86,55 @@ class Wallet
                 case 'sepa':
                     return '/storage/icons/wallet-sepa.png';
                     break;
+
+                case 'fee':
+                    return '/storage/icons/wallet-fee.png';
+                    break;
             }
         }
+    }
+
+    public function createTransaction($user_id, $wallet_id, $type, $amount, $holder, $category, $confirmed = true, $designation = null, $programmed = null)
+    {
+        $transaction = Transaction::create([
+            "payable_type" => "App\Models\User",
+            "payable_id" => $user_id,
+            "wallet_id" => $wallet_id,
+            "type" => $type,
+            "amount" => $amount,
+            "confirmed" => $confirmed,
+            "meta" => [
+                "holder" => $holder,
+                "category" => $category,
+                "designation" => $designation,
+                "programmed_at" => $programmed
+            ],
+            'uuid' => Uuid::uuid1(),
+        ]);
+
+        $wallet = \Bavix\Wallet\Models\Wallet::find($wallet_id);
+
+        if ($confirmed == true) {
+            $this->updatedBalance($wallet_id, $transaction->amount);
+        }
+
+    }
+
+    public function confirmTransaction($uuid)
+    {
+        $transaction = Transaction::where('uuid', $uuid)->first();
+
+        $transaction->confirmed = true;
+        $transaction->save();
+
+        $this->updatedBalance($transaction->wallet_id, $transaction->amount);
+    }
+
+    protected function updatedBalance($wallet_id, $amount)
+    {
+        $wallet = \Bavix\Wallet\Models\Wallet::find($wallet_id);
+
+        $wallet->balance += $amount;
+        $wallet->save();
     }
 }

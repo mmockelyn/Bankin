@@ -3,6 +3,9 @@
 namespace App\Models\Core;
 
 use App\Models\User\UserSubscription;
+use Bavix\Wallet\Interfaces\Customer;
+use Bavix\Wallet\Interfaces\Product;
+use Bavix\Wallet\Traits\HasWallet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

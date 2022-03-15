@@ -95,13 +95,6 @@ class UserSeeder extends Seeder
         $iban = $ibanGen->generate(10, $user);
         $card = $ccGenerator->generate($user, ['debit_type' => "differ", "payment_limit" => 1200, "withdraw_limit" => 700], $iban);
 
-        $plan = ["silver", "gold"];
-        $c_plan = array_rand($plan, 1);
-        $subscription = User\UserSubscription::create([
-            "user_id" => $user->id,
-            "subscription_id" => $plan[rand(0,1)] == 'silver' ? 1 : 2,
-        ]);
-
         $wallet = $user->createWallet([
             'name' => "Compte ".CivilityEnum::render('type_account', $civility->type_account),
             'slug' => \Str::slug("Compte ".CivilityEnum::render('type_account', $civility->type_account)),
@@ -113,6 +106,16 @@ class UserSeeder extends Seeder
         ]);
 
         $wallet->deposit(100, ["designation" => "Dépot d'espèce ".$user->agence->nom_agence]);
+
+        $plan = ["silver", "gold"];
+        $c_plan = array_rand($plan, 1);
+        $subscription = User\UserSubscription::create([
+            "user_id" => $user->id,
+            "subscription_id" => $plan[rand(0,1)] == 'silver' ? 1 : 2,
+            "wallet_id" => $wallet->id
+        ]);
+
+
 
     }
 }

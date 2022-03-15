@@ -14,6 +14,10 @@ class WalletController extends Controller
         $wallet = $request->user()->wallets()->where('uuid', $uuid)->first();
         $user = $request->user();
 
-        return view('account.wallet.show', compact('wallet', 'user'));
+        if(isset($wallet)) {
+            return view('account.wallet.show', compact('wallet', 'user'));
+        } else {
+            return redirect()->back()->with('error', "Numéro de compte invalide !");
+        }
     }
 }

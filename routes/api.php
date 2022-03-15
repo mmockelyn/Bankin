@@ -19,6 +19,10 @@ Route::prefix('simulate')->group(function () {
     Route::get('info_subscription', \App\Http\Controllers\Api\Simulate\InfoSubscriptionController::class);
 });
 
+Route::prefix('account')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Api\AccountController::class, 'info']);
+});
+
 Route::prefix('oauth')->group(function () {
     Route::get('/token', [\App\Http\Controllers\Api\AuthController::class, 'token']);
     Route::post('/verify', [\App\Http\Controllers\Api\AuthController::class, 'verify']);
