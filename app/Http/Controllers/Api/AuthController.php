@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Otp\GoogleAuthenticator;
+use Otp\Otp;
 use Spatie\SlackAlerts\Facades\SlackAlert;
 
 class AuthController extends Controller
@@ -19,6 +21,7 @@ class AuthController extends Controller
             return response()->json();
         } else {
             // TODO: Implement SMS
+
             return response()->json();
         }
     }

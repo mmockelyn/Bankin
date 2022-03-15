@@ -92,3 +92,11 @@
 .stepper-item:last-child::after {
     content: none;
 }
+
+.nav-line-tabs.nav-line-tabs-5x {
+    border-bottom-width: 5px;
+}
+
+.nav-line-tabs.nav-line-tabs-5x .nav-item .nav-link.active, .nav-line-tabs.nav-line-tabs-5x .nav-item .nav-link:hover:not(.disabled), .nav-line-tabs.nav-line-tabs-5x .nav-item.show .nav-link {
+    border-bottom-width: 5px;
+}

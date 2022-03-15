@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+include('auth.php');
 include('front.php');
 include('account.php');
 

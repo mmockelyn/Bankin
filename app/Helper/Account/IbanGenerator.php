@@ -23,10 +23,9 @@ class IbanGenerator
         $this->totalPaysECBS = sizeof($this->pays)-1;
     }
 
-    public function generate($num_pays, $user)
+    public function generate($num_pays, $user, $code_banque, $code_guichet)
     {
-        $code_banque = $this->code_banque($num_pays);
-        $code_branche = $this->code_branche($num_pays);
+        $code_branche = $code_guichet;
         $numero_cpt = $this->numero_cpt($num_pays);
         $key = $this->keyBBAN($num_pays);
         $pays = $this->codePays[$num_pays];
@@ -51,6 +50,37 @@ class IbanGenerator
             return $exception;
         }
 
+    }
+
+    public function control($iban)
+    {
+        $iban = str_replace(" ", "", $iban);
+        $iban = str_replace("-", "", $iban);
+        $taille = strlen($iban);
+
+        $ibanverif = substr($iban, 4, $taille-4)."".substr($iban, 0, 4);
+
+        for($cpt='0';$cpt<=$taille-1;$cpt++)
+        {
+            if (ereg ("[A-Z]", $ibanverif[$cpt])){ //Trouve la lettre
+                $ibanverif = substr($ibanverif, 0, $cpt).base_convert($ibanverif[$cpt], 36, 10).
+                    substr($ibanverif, $cpt+1, $taille); //R�assemblage
+                $taille = $taille + 1 ; //La lettre est cod� sur 2 chiffres
+            }
+        }
+
+        if(bcmod($ibanverif, '97') == '1'){
+            $valid = true;
+        }else{
+            $valid = false;
+        }
+
+        return $valid;
+    }
+
+    public static function info($iban)
+    {
+        return \Http::get('https://api.ibanapi.com/v1/validate/'.$iban.'?api_key=ba53a7cb8493ce3e03c3968e81c799d33ee04e4f')->object();
     }
 
     protected function code_banque($numPays)

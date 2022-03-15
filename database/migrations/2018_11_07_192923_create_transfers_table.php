@@ -46,6 +46,8 @@ class CreateTransfersTable extends Migration
             $table->uuid('uuid')->unique();
             $table->timestamps();
 
+            $table->json('meta')->nullable();
+
             $table->foreign('deposit_id')
                 ->references('id')
                 ->on($this->transactionTable())

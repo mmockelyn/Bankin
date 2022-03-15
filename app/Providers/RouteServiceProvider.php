@@ -35,9 +35,15 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            \Erdemkeren\Otp\OtpRoutes::register();
         });
     }
 
+    public function map()
+    {
+
+    }
     /**
      * Configure the rate limiters for the application.
      *
@@ -46,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+            return Limit::perMinute(60)->by($request->user()->id ?: $request->ip());
         });
     }
 }

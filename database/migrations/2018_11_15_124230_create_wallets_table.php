@@ -25,6 +25,10 @@ class CreateWalletsTable extends Migration
             $table->timestamps();
 
             $table->unique(['holder_type', 'holder_id', 'slug']);
+
+            $table->foreignId('iban_id')->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
 
         Schema::table($this->transactionTable(), function (Blueprint $table) {

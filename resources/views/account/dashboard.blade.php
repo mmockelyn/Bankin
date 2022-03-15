@@ -142,7 +142,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 text-end fs-3">
-                                    @if(auth()->user()->balance < 0)
+                                    @if($wallet->balance < 0)
                                         <span class="text-danger">{{ eur($wallet->balance) }}</span>
                                     @else
                                         <span class="text-success">{{ eur($wallet->balance) }}</span>

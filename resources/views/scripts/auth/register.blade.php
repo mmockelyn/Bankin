@@ -18,7 +18,8 @@
             city: document.querySelector('[name=city]'),
             fiscal_country: document.querySelector('[name=fiscal_country]'),
         },
-        debit_type: document.querySelectorAll('[name=debit_type]')
+        debit_type: document.querySelectorAll('[name=debit_type]'),
+        otp_code: document.querySelector('[name=otp_code]')
     }
     let stepper = new KTStepper(elements.step);
 

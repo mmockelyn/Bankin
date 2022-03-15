@@ -53,6 +53,29 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Page Custom Javascript(used by this page)-->
 <script src="/assets/js/custom/landing.js"></script>
 <script src="/assets/js/custom/pages/pricing/general.js"></script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBEbB3B0SUJiUup1S-xHqu0Aav3oHpXu_A",
+        authDomain: "bzhm-financial.firebaseapp.com",
+        projectId: "bzhm-financial",
+        storageBucket: "bzhm-financial.appspot.com",
+        messagingSenderId: "411876137194",
+        appId: "1:411876137194:web:3636bf213edc6326379f93",
+        measurementId: "G-HFH6JFJ32Y"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+</script>
 <script src="/assets/js/custom.js"></script>
 @yield("script")
 <!--end::Page Custom Javascript-->

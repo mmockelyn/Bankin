@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Models\Core\Agence;
+use App\Models\Core\BankTransfer;
 use App\Models\Core\Subscription;
 use App\Models\User\CreditCard;
 use App\Models\User\Iban;
 use App\Models\User\UserAccount;
 use App\Models\User\UserAddress;
+use App\Models\User\UserBeneficiary;
 use App\Models\User\UserCivility;
 use App\Models\User\UserJustify;
 use App\Models\User\UserPro;
@@ -109,6 +111,16 @@ class User extends Authenticatable implements Wallet,HasLoginsAndDevicesInterfac
     public function agence()
     {
         return $this->belongsTo(Agence::class);
+    }
+
+    public function beneficiaries()
+    {
+        return $this->hasMany(UserBeneficiary::class);
+    }
+
+    public function ben_transfers()
+    {
+        return $this->hasMany(BankTransfer::class);
     }
 
 

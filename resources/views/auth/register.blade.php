@@ -1524,8 +1524,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 name="otp_code"
                                                 type="text"
                                                 label="Code confidentiel reçu par SMS" />
+                                            <div id="recaptcha-container"></div>
                                             <p id="otp_error_text" class="text-danger"></p>
-                                            <a href="#">Recevoir un nouveau code</a>
+                                            <button class="btn btn-flush" onclick="phoneSendAuth()">Recevoir un nouveau code</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1673,6 +1674,55 @@ License: For each use you must have a valid license purchased only from above li
 <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 @include("scripts.auth.register")
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBEbB3B0SUJiUup1S-xHqu0Aav3oHpXu_A",
+        authDomain: "bzhm-financial.firebaseapp.com",
+        projectId: "bzhm-financial",
+        storageBucket: "bzhm-financial.appspot.com",
+        messagingSenderId: "411876137194",
+        appId: "1:411876137194:web:3636bf213edc6326379f93",
+        measurementId: "G-HFH6JFJ32Y"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth()
+
+    auth.languageCode = 'fr';
+
+    window.onload=function () {
+        render();
+    };
+
+    let render = () => {
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
+    }
+
+    let phoneSendAuth = (e) => {
+        e.preventDefault()
+        let phone = document.querySelector('[name=phone]')
+        signInWithPhoneNumber(auth, phone.value, window.recaptchaVerifier)
+            .then((confirmationResult) => {
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+                window.confirmationResult = confirmationResult;
+                console.log(window.confirmationResult)
+            }).catch((error) => {
+            console.log(error)
+        });
+    }
+</script>
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->
 </body>

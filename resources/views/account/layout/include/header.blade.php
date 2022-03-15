@@ -52,7 +52,7 @@
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3">Virements</a>
+                        <a href="{{ route('account.transfer.index') }}" class="menu-link px-3">Virements</a>
                     </div>
                     <!--end::Menu item-->
                     <!--begin::Menu item-->

@@ -8,6 +8,7 @@ use App\Helper\Account\IbanGenerator;
 use App\Models\Core\Agence;
 use App\Models\Core\Subscription;
 use App\Models\User;
+use App\Service\Openpayd\Accounts;
 use Faker\Generator;
 use Illuminate\Container\Container;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -92,7 +93,7 @@ class UserSeeder extends Seeder
             "user_id" => $user->id
         ]);*/
 
-        $iban = $ibanGen->generate(10, $user);
+        $iban = $ibanGen->generate(10, $user, $user->agence->code_banque, $user->agence->code_agence);
         $card = $ccGenerator->generate($user, ['debit_type' => "differ", "payment_limit" => 1200, "withdraw_limit" => 700], $iban);
 
         $wallet = $user->createWallet([
@@ -102,7 +103,8 @@ class UserSeeder extends Seeder
                 'iban' => $iban->iban,
                 'card' => $card->number,
                 'credit' => 500
-            ]
+            ],
+            'iban_id' => $iban->id
         ]);
 
         $wallet->deposit(100, ["designation" => "Dépot d'espèce ".$user->agence->nom_agence]);
@@ -115,6 +117,10 @@ class UserSeeder extends Seeder
             "wallet_id" => $wallet->id
         ]);
 
+        $account = new Accounts();
+        $acc = $account->create('EUR', "Compte ".CivilityEnum::render('type_account', $civility->type_account));
+
+        dd($acc);
 
 
     }

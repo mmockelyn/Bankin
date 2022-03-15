@@ -5,19 +5,25 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^7.1 || ^8.0 || ^8.1",
         "arcanedev/log-viewer": "~9.0",
         "archtechx/enums": "^0.2.0",
         "bavix/laravel-wallet": "^8.0",
+        "brian2694/laravel-toastr": "^5.57",
+        "christian-riesen/otp": "^2.7",
         "creativeorange/gravatar": "^1.0",
+        "globalcitizen/php-iban": "^4.1",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/validation": "3.1.0",
         "lab404/laravel-auth-checker": "^1.6",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
+        "mmockelyn/laravel-otp": "^4.0",
         "spatie/laravel-slack-alerts": "^1.0",
-        "stripe/stripe-php": "^7.116"
+        "stripe/stripe-php": "^7.116",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

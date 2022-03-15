@@ -23,6 +23,7 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Page Vendor Stylesheets(used by this page)-->
     <link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
@@ -191,6 +192,30 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Page Vendors Javascript(used by this page)-->
 <script src="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBEbB3B0SUJiUup1S-xHqu0Aav3oHpXu_A",
+        authDomain: "bzhm-financial.firebaseapp.com",
+        projectId: "bzhm-financial",
+        storageBucket: "bzhm-financial.appspot.com",
+        messagingSenderId: "411876137194",
+        appId: "1:411876137194:web:3636bf213edc6326379f93",
+        measurementId: "G-HFH6JFJ32Y"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+</script>
+{!! Brian2694\Toastr\Facades\Toastr::message() !!}
 <!--end::Page Vendors Javascript-->
 @yield('script')
 <!--end::Javascript-->
