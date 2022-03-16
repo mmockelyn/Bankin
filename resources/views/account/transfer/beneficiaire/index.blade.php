@@ -22,7 +22,57 @@
     </div>
 
     <div class="container">
-
+        <div class="row">
+            <div class="col-md-7">
+                @foreach(auth()->user()->beneficiaries as $beneficiaire)
+                    <div class="card mb-5 opacity-75 opacity-100-hover cursor-pointer" style="background: #c6c6c6;" data-id="{{ $beneficiaire->id }}" onclick="getBeneficiaire(this)">
+                        <!--begin::Body-->
+                        <div class="card-body d-flex flex-column ps-xl-15">
+                            <div class="fs-9 d-flex align-items-center"><i class="fas fa-circle text-warning me-2"></i> {{ $beneficiaire->banque }}</div>
+                            <div class="row mt-1">
+                                <div class="col">
+                                    <div class="fw-bolder fs-3">{{ $beneficiaire->name }}</div>
+                                </div>
+                                <div class="col">
+                                    {{ $beneficiaire->iban }}
+                                </div>
+                                <div class="col text-end">
+                                    <i class="fas fa-chevron-right fa-lg text-gray-800 "></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                @endforeach
+            </div>
+            <div class="col-md-5">
+                <div class="card rounded-3 shadow-lg cardContent">
+                    <div class="card-body justify-content-center">
+                        <div class="d-flex flex-column mb-15">
+                            <div class="fs-4">IBAN</div>
+                            <div id="textIban" class="fw-bolder fs-3">dqdqsdqsdqs</div>
+                        </div>
+                        <div class="d-flex flex-column mb-15">
+                            <div class="fs-4">Nom du bénéficiaire</div>
+                            <div id="textIban" class="fw-bolder fs-3">dqdqsdqsdqs</div>
+                        </div>
+                        <div class="d-flex flex-column mb-15">
+                            <div class="fs-4">Banque</div>
+                            <div id="textIban" class="fw-bolder fs-3">dqdqsdqsdqs</div>
+                        </div>
+                        <div class="d-flex flex-column mb-15">
+                            <div class="fs-4">Je suis titulaire de ce compte</div>
+                            <div id="textIban" class="fw-bolder fs-3">dqdqsdqsdqs</div>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <button class="btn btn-primary btn-lg mb-3">Modifier</button>
+                            <button class="btn btn-outline btn-outline-danger btn-lg mb-3">Supprimer</button>
+                            <button class="btn btn-outline btn-outline-primary btn-lg mb-3">Faire un virement</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal fade" id="add" tabindex="-1">
         <!--begin::Modal dialog-->

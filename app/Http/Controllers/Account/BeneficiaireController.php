@@ -20,27 +20,15 @@ class BeneficiaireController extends Controller
 
     public function store(BeneficiaireRequest $request)
     {
-        if(!$request->has('incumbent')) {
-            $check = IbanGenerator::info($request->get('iban'));
-
-            try {
-                $beneficiaire = UserBeneficiary::create([
-                    "iban" => $request->get('iban'),
-                    'bic' => $check->data->bank->bic ? $check->data->bank->bic : $request->user()->agence->bic,
-                    'banque' => $check->data->bank->bank_name ? $check->data->bank->bank_name : $request->user()->agence->nom_agence,
-                    'user_id' => $request->user()->id
-                ]);
-
-                return response()->json($beneficiaire);
-            }catch (\Exception $exception) {
-                return response()->exception;
-            }
-        } else {
+        $check = IbanGenerator::info($request->get('iban'));
+        if($request->has('incumbent')) {
             $generator = new IbanGenerator();
-            $iban = $generator->generate(10, $request->user(), $request->user()->agence->code_banque, $request->user()->agence->code_agence);
-            $request->user()->createWallet([
+            $generator->generate(10, $request->user(), $request->user()->agence->code_banque, $request->user()->agence->code_agence);
+            $iban = Iban::all()->last();
+
+            auth()->user()->createWallet([
                 'name' => "Compte ".CivilityEnum::render('type_account', $request->user()->civility->type_account),
-                'slug' => \Str::slug("Compte ".CivilityEnum::render('type_account', $request->user()->civility->type_account)),
+                'slug' => \Str::slug("Compte secondaire (".$request->get('name').") ".CivilityEnum::render('type_account', $request->user()->civility->type_account)),
                 'meta' => [
                     'iban' => $request->get('iban'),
                     'card' => null,
@@ -48,6 +36,19 @@ class BeneficiaireController extends Controller
                 ],
                 'iban_id' => $iban->id
             ]);
+        }
+        try {
+            $beneficiaire = UserBeneficiary::create([
+                "iban" => $request->get('iban'),
+                'bic' => $check->data->bank->bic ? $check->data->bank->bic : $request->user()->agence->bic,
+                'banque' => $check->data->bank->bank_name ? $check->data->bank->bank_name : $request->user()->agence->nom_agence,
+                'user_id' => $request->user()->id,
+                'name' => $request->get('name')
+            ]);
+
+            return response()->json($beneficiaire);
+        }catch (\Exception $exception) {
+            return response()->json($exception);
         }
     }
 }

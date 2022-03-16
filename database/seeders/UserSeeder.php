@@ -117,11 +117,5 @@ class UserSeeder extends Seeder
             "wallet_id" => $wallet->id
         ]);
 
-        $account = new Accounts();
-        $acc = $account->create('EUR', "Compte ".CivilityEnum::render('type_account', $civility->type_account));
-
-        dd($acc);
-
-
     }
 }

@@ -26,7 +26,7 @@ class CreateWalletsTable extends Migration
 
             $table->unique(['holder_type', 'holder_id', 'slug']);
 
-            $table->foreignId('iban_id')->constrained()
+            $table->foreignId('iban_id')->nullable()->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

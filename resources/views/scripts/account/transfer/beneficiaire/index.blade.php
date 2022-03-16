@@ -3,6 +3,11 @@
         modal_add: document.querySelector('#add'),
         form_add: $("#form_add"),
         form_add_btn: document.querySelector('[data-kt-modal-action-type="submit"]'),
+        cardContent: document.querySelector('.cardContent')
+    }
+
+    let getBeneficiaire = (beneficiaire) => {
+        console.log(beneficiaire)
     }
 
     elements.form_add.on('submit', (e) => {
@@ -20,11 +25,13 @@
             data: data,
             success: data => {
                 console.log(data)
-                elements.modal_add.hide()
-                form[0].reset()
+                toastr.success(`Le bénéficiaire ${data.name} à été ajouté`)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1300)
             },
-            error: data => {
-                toastr.error(data.responseJSON.message)
+            error: () => {
+                toastr.error("Une erreur à eu lieu lors de la création du bénéficiaire.Veuillez contacter le support.", "Erreur Serveur X-MYS")
             }
         })
     })
